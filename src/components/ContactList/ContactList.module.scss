@@ -4,6 +4,8 @@
   row-gap: 12px;
   padding: 0;
   align-items: center;
+  max-height: 250px;
+  overflow-y: auto;
 }
 
 .contactsListBtn {

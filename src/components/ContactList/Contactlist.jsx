@@ -27,11 +27,11 @@ export const ContactsList = () => {
   return (
     <ul className={css.contactsList}>
       {contactsFilter.map(contact => {
-        const { id, name, phone } = contact;
+        const { id, name, number } = contact;
         return (
           <li className={css.listItem} key={id}>
             <span>{name}:</span>
-            <span>{phone}</span>
+            <span>{number}</span>
             <button
               type="button"
               className={css.contactsListBtn}

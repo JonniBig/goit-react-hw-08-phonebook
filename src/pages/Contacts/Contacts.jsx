@@ -6,12 +6,14 @@ import css from './Contacts.module.scss';
 
 const Contacts = () => {
   return (
-    <div className={css.container}>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactsList />
+    <div className={css.contacts}>
+      <div className={css.container}>
+        <h1>Phonebook</h1>
+        <ContactForm />
+        <h2>Contacts</h2>
+        <Filter />
+        <ContactsList />
+      </div>
     </div>
   );
 };

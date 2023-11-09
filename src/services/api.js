@@ -1,8 +1,5 @@
-import axios from 'axios';
+import { instance } from 'redux/authSlice';
 
-const instance = axios.create({
-  baseURL: 'https://6540e28145bedb25bfc2cdad.mockapi.io/',
-});
 export const requestContacts = async () => {
   const { data } = await instance.get('/contacts');
   return data;

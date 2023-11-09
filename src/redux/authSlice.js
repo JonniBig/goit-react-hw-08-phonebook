@@ -1,9 +1,9 @@
 import { requestaddContact, requestdeleteContact } from 'services/api';
 import axios from 'axios';
 
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
+const { createSlice, createAsyncThunk, isAnyOf } = require('@reduxjs/toolkit');
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: 'https://connections-api.herokuapp.com/',
 });
 const setToken = token => {
@@ -44,6 +44,26 @@ export const refreshThunk = createAsyncThunk(
     try {
       setToken(token);
       const { data } = await instance.get('/users/current');
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  },
+  {
+    condition: (_, thunkApi) => {
+      const state = thunkApi.getState();
+      const token = state.auth.token;
+      if (!token) return false;
+      return true;
+    },
+  }
+);
+
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkApi) => {
+    try {
+      const { data } = await instance.post('/users/logout');
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -91,23 +111,11 @@ const authSlice = createSlice({
 
   extraReducers: builder =>
     builder
-      .addCase(registerThunk.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.token = action.payload.token;
         state.userData = action.payload.user;
         state.isSignedIn = true;
         state.isLoading = false;
-      })
-      .addCase(registerThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(loginThunk.pending, state => {
-        state.isLoading = true;
-        state.error = null;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.token = action.payload.token;
@@ -115,49 +123,38 @@ const authSlice = createSlice({
         state.isSignedIn = true;
         state.isLoading = false;
       })
-      .addCase(loginThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(refreshThunk.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
       .addCase(refreshThunk.fulfilled, (state, action) => {
         state.userData = action.payload;
         state.isSignedIn = true;
         state.isLoading = false;
       })
-      .addCase(refreshThunk.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+      .addCase(logoutThunk.fulfilled, () => {
+        return authInitialState;
       })
-      .addCase(addContact.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(addContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items.push(action.payload);
-      })
-      .addCase(addContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(deleteContact.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items = state.items.filter(
-          contact => contact.id !== action.payload.id
-        );
-      })
-      .addCase(deleteContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      }),
+      .addMatcher(
+        isAnyOf(
+          logoutThunk.pending,
+          loginThunk.pending,
+          refreshThunk.pending,
+          registerThunk.pending
+        ),
+        state => {
+          state.isLoading = true;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          logoutThunk.rejected,
+          loginThunk.rejected,
+          refreshThunk.rejected,
+          registerThunk.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload;
+        }
+      ),
 });
 
 export const authReducer = authSlice.reducer;

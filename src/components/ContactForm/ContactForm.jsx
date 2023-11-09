@@ -12,20 +12,20 @@ export const ContactForm = () => {
     const hasDuplicateContacts = contacts.some(
       contact =>
         contact.name.toLowerCase() === userContacts.name.toLowerCase() ||
-        contact.phone === userContacts.phone
+        contact.number === userContacts.number
     );
 
     if (hasDuplicateContacts) {
       alert(
-        `${userContacts.name} or ${userContacts.phone} is already in contacts`
+        `${userContacts.name} or ${userContacts.number} is already in contacts`
       );
       return;
     }
     dispatch(addContact(userContacts));
   };
 
-  const [data, setData] = useState({ name: '', phone: '' });
-  const { name, phone } = data;
+  const [data, setData] = useState({ name: '', number: '' });
+  const { name, number } = data;
 
   const handleInputChange = ({ target }) => {
     const { name, value } = target;
@@ -35,11 +35,11 @@ export const ContactForm = () => {
     e.preventDefault();
     const userContacts = {
       name: name,
-      phone: phone,
+      number: number,
     };
 
     handleAddContact(userContacts);
-    setData({ name: '', phone: '' });
+    setData({ name: '', number: '' });
   };
 
   return (
@@ -57,10 +57,10 @@ export const ContactForm = () => {
       <label>
         <input
           type="tel"
-          value={phone}
+          value={number}
           onChange={handleInputChange}
-          name="phone"
-          placeholder="Phone"
+          name="number"
+          placeholder="Number"
           required
         />
       </label>
