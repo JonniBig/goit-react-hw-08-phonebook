@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/395.ed4d8628.chunk.css","mappings":"AAAA,mBACE,eAEF,sBACE,eAEF,wBACE","sources":["pages/Home/Home.module.scss"],"sourcesContent":[".title {\n  font-size: 48px;\n}\n.titletwo {\n  font-size: 32px;\n}\n.titlelink {\n  text-decoration: underline;\n}\n"],"names":[],"sourceRoot":""}
