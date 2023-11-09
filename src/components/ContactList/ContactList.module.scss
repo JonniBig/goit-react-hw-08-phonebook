@@ -8,9 +8,13 @@
 
 .contactsListBtn {
   margin-left: auto;
+  border-color: transparent;
+  background-color: transparent;
 }
 
 .listItem {
   display: flex;
-  width: 400px;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #7fcbea;
 }
