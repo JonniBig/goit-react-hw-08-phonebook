@@ -8,10 +8,11 @@ const Home = () => {
       <h1 className={css.title}>Hello</h1>
       <h2 className="animate__animated animate__fadeInDown">
         <span className={css.titletwo}>
-          Please{' '}
+          Please
           <Link to="/register">
-            <span className={css.titlelink}>register</span>
+            <span className={css.titlelink}> register </span>
           </Link>
+          if you want to manage contacts.
         </span>
       </h2>
     </div>

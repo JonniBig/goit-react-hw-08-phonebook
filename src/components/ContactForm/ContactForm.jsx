@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { addContact } from '../../redux/contactSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
+import toast from 'react-hot-toast';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,13 @@ export const ContactForm = () => {
     );
 
     if (hasDuplicateContacts) {
-      alert(
+      toast.error(
         `${userContacts.name} or ${userContacts.number} is already in contacts`
       );
       return;
     }
     dispatch(addContact(userContacts));
+    toast.success('Contact added successfully!');
   };
 
   const [data, setData] = useState({ name: '', number: '' });

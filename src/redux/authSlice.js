@@ -1,4 +1,3 @@
-import { requestaddContact, requestdeleteContact } from 'services/api';
 import axios from 'axios';
 
 const { createSlice, createAsyncThunk, isAnyOf } = require('@reduxjs/toolkit');
@@ -65,30 +64,6 @@ export const logoutThunk = createAsyncThunk(
     try {
       const { data } = await instance.post('/users/logout');
       return data;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
-    }
-  }
-);
-
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async (newcontact, thunkApi) => {
-    try {
-      const addedContact = await requestaddContact(newcontact);
-      return addedContact;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
-    }
-  }
-);
-
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
-  async (id, thunkApi) => {
-    try {
-      const deleteContact = await requestdeleteContact(id);
-      return deleteContact;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
