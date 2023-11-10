@@ -17,23 +17,25 @@ const Register = () => {
     e.currentTarget.reset();
   };
   return (
-    <div className={css.login}>
-      <div className={css.section}>
-        <h1>Register</h1>
-        <form onSubmit={onSubmit} className={css.form}>
-          <label>
-            <input type="text" name="name" placeholder="Name" />
-          </label>
-          <label>
-            <input type="email" name="email" placeholder="Email" />
-          </label>
-          <label>
-            <input type="password" name="password" placeholder="Password" />
-          </label>
-          <button type="submit" className={css.btn}>
-            Sign UP
-          </button>
-        </form>
+    <div className="animate__animated animate__fadeInDown">
+      <div className={css.login}>
+        <div className={css.section}>
+          <h1>Register</h1>
+          <form onSubmit={onSubmit} className={css.form}>
+            <label>
+              <input type="text" name="name" placeholder="Name" />
+            </label>
+            <label>
+              <input type="email" name="email" placeholder="Email" />
+            </label>
+            <label>
+              <input type="password" name="password" placeholder="Password" />
+            </label>
+            <button type="submit" className={css.btn}>
+              Sign UP
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

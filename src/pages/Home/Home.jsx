@@ -9,6 +9,10 @@ const Home = () => {
       <h2 className="animate__animated animate__fadeInDown">
         <span className={css.titletwo}>
           Please
+          <Link to="/login">
+            <span className={css.titlelink}> login </span>
+          </Link>
+          or
           <Link to="/register">
             <span className={css.titlelink}> register </span>
           </Link>

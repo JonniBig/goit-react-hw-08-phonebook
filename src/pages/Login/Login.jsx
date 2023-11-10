@@ -15,20 +15,22 @@ const Login = () => {
     e.currentTarget.reset();
   };
   return (
-    <div className={css.login}>
-      <div className={css.section}>
-        <h1>Login</h1>
-        <form onSubmit={onSubmit} className={css.form}>
-          <label>
-            <input type="email" name="email" placeholder="Email" />
-          </label>
-          <label>
-            <input type="password" name="password" placeholder="Password" />
-          </label>
-          <button type="submit" className={css.btn}>
-            Sign IN
-          </button>
-        </form>
+    <div className="animate__animated animate__fadeInDown">
+      <div className={css.login}>
+        <div className={css.section}>
+          <h1>Login</h1>
+          <form onSubmit={onSubmit} className={css.form}>
+            <label>
+              <input type="email" name="email" placeholder="Email" />
+            </label>
+            <label>
+              <input type="password" name="password" placeholder="Password" />
+            </label>
+            <button type="submit" className={css.btn}>
+              Sign IN
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
